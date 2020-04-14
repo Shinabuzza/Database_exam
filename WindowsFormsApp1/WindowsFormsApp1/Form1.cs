@@ -99,9 +99,22 @@ namespace WindowsFormsApp1
 
         private void button4_Click(object sender, EventArgs e)
         {
+
             SQLiteCommand CMD = DB.CreateCommand();
-           
-      }
+            CMD.CommandText = ("DELETE  from Kino where 'Film_name' LIKE" + "'" + this.comboBox1.Text + "%'");
+
+            SQLiteDataReader SQL = CMD.ExecuteReader();
+            if (SQL.HasRows)
+            {
+                while (SQL.Read())
+                {
+                    listBox1.Text += "Фильм: " + SQL["Film_name"] + " Имя : " + SQL["First_name"] + " Фамилия : " + SQL["Second_name"] + " Дата : " + SQL["Film_date"] + " Страна : " + SQL["Country"] + " Цена : " + SQL["Price"] + " Поступило : " + SQL["Income"] + " Профит : " + SQL["Profit"] + "\t\r\n";
+                }
+
+            }
+            else listBox1.Text = "Нет таких";
+
+        }
 
         private void button5_Click(object sender, EventArgs e)
 
